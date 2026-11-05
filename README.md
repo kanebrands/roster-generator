@@ -14,7 +14,7 @@ The preview uses invented names and sample sections and flags.
 
 ## Install and display
 
-1. Download `mod_roster-0.0.1.zip` from the [releases page](https://github.com/kanebrands/roster-generator/releases), or build it from this source tree.
+1. Download the latest `mod_roster-X.Y.Z.zip` from the [releases page](https://github.com/kanebrands/roster-generator/releases), or build it from this source tree.
 2. In Joomla administrator, go to **System > Install > Extensions** and upload the ZIP.
 3. Go to **Content > Site Modules**, open **Roster**, and enter the roster content on the **Module** tab.
 4. Set **Status** to Published and **Show Title** to Hide. The **Page title** setting supplies the public heading.
@@ -27,8 +27,9 @@ The preview uses invented names and sample sections and flags.
 - **Members:** Add, edit, remove, and reorder people. Enter one or more *existing section headings*, one per line, in **Assigned sections**. A member assigned to two sections appears in both. Section names must match exactly, including capitalization. If you rename a section, update its member assignments too.
 - **Marking:** Enter a symbol such as `*` or `**` on a member row.
 - **Legend:** Add each marking and its meaning, such as `*` = `Section Leader`.
-- **Import roster:** Paste or upload a `.txt` file with `**Section**` headings and one name per line, or a CSV with `Name, Section, Flags` columns. Trailing markers such as `Jane Smith*` become flags. Repeat a person on separate CSV rows to assign multiple sections. Matching names and section headings are merged case-insensitively; imported flags replace existing flags for matching members. Review the editor rows and save to persist the import.
+- **Import roster:** Paste or upload a `.txt` file with a plain heading or `**Heading**` on its own line, one name per line, and a blank line between sections. In this format, trailing `*`, `**`, `†`, `‡`, or `§` become flags; define their meanings on final lines such as `*Principal`. CSV must start with `Name,Section,Flags`; use one row per assignment and quote fields containing commas. CSV flags may contain any text. Matching names and section headings are merged case-insensitively; imported flags replace existing flags for matching members. The editor shows an error when the file is unreadable or malformed. Review the rows and save to persist the import.
 - **Preview roster:** Click **Preview roster** to render the current editor values before saving or publishing. The preview is visible only in the administrator editor.
+- **Display options:** Choose editor order or alphabetical order by last name within each section. The preview follows this setting.
 
 Create additional rosters with **Content > Site Modules > New > Roster**. Each module instance has separate content, publication status, and menu assignment. Use its module ID in a different article to give each roster a dedicated public page.
 
@@ -55,6 +56,7 @@ find services src tmpl -name '*.php' -print0 | xargs -0 -n1 php -l
 python3 scripts/check.py
 node --check media/js/admin-import.js
 node scripts/test-import.js
+node scripts/test-editor.js
 php -d zend.assertions=1 scripts/test-render.php
 python3 scripts/build.py
 ```

@@ -47,9 +47,13 @@
     if (nameIndex < 0 || sectionIndex < 0 || flagsIndex < 0) {
       throw new Error('CSV header must contain Name, Section, Flags.');
     }
+    if (!rows.length) throw new Error('CSV has no member rows after the header.');
 
     const entries = [];
     rows.forEach((fields, index) => {
+      if (fields.length !== header.length) {
+        throw new Error(`CSV row ${index + 2} has ${fields.length} columns; expected ${header.length}. Quote names or sections that contain commas.`);
+      }
       const name = (fields[nameIndex] || '').trim();
       const section = (fields[sectionIndex] || '').trim();
       if (!name || !section) throw new Error(`CSV row ${index + 2} needs a name and section.`);
@@ -64,34 +68,57 @@
     const entries = [];
     const sections = [];
     const legend = [];
-    let section = '';
-    String(text).replace(/^\uFEFF/, '').split(/\r\n|\r|\n/).forEach((source) => {
-      const line = source.trim();
-      if (!line) return;
-      const heading = line.match(/^\*\*(.+?)\*\*$/);
-      if (heading) {
-        section = heading[1].trim();
-        if (section) sections.push(section);
+    const blocks = String(text).replace(/^\uFEFF/, '').trim().split(/(?:\r\n|\r|\n)\s*(?:\r\n|\r|\n)/);
+
+    blocks.forEach((block) => {
+      const rows = lines(block);
+      if (!rows.length) return;
+      if (rows.some((line) => /^\*{3,}/.test(line) || /\*{3,}$/.test(line))) {
+        throw new Error('Sectioned text supports *, **, †, ‡, or § flags. Use CSV for other flag text.');
+      }
+
+      const markdownHeading = rows.length === 1 && /^\*\*(.+?)\*\*$/.test(rows[0]);
+      if (markdownHeading) {
+        sections.push(rows[0].slice(2, -2).trim());
         return;
       }
-      const escapedLegend = line.match(/^\*\\\*(.+?)\*$/);
-      if (escapedLegend) {
-        legend.push({ mark: '*', meaning: escapedLegend[1].trim() });
+
+      const definitions = rows.map((line) => {
+        const escaped = line.match(/^\*\\\*(.+?)\*$/);
+        if (escaped) return { mark: '*', meaning: escaped[1].trim() };
+        const plain = line.replace(/\\([*†‡§])/g, '$1');
+        const match = plain.match(/^(\*{1,2}|[†‡§])\s*(?:=|:|-)?\s*(.+)$/);
+        return match ? { mark: match[1], meaning: match[2].replace(/\*$/, '').trim() } : null;
+      });
+
+      if (definitions.every((entry) => entry && entry.meaning)) {
+        legend.push(...definitions);
         return;
       }
-      const plain = line.replace(/\\([*†‡§])/g, '$1');
-      const definition = plain.match(/^([*†‡§]+)\s*(?:=|:|-)?\s*(.+)$/);
-      if (definition && (source.startsWith('*') || source.startsWith('\\*'))) {
-        const meaning = definition[2].replace(/\*$/, '').trim();
-        if (meaning) legend.push({ mark: definition[1], meaning });
-        return;
-      }
-      if (!section) throw new Error('Add a **Section** heading before the first member.');
-      const marked = plain.match(/^(.*?)\s*([*†‡§]+)$/);
-      const name = marked ? marked[1].trim() : plain;
-      if (name) entries.push({ name, section, mark: marked ? marked[2] : '' });
+
+      const heading = rows.shift().replace(/^\*\*(.+?)\*\*$/, '$1').replace(/^#{1,6}\s+/, '').trim();
+      if (!heading) throw new Error('A section heading is missing.');
+      sections.push(heading);
+
+      rows.forEach((line) => {
+        const definition = line.match(/^\*\\\*(.+?)\*$/);
+        if (definition) {
+          legend.push({ mark: '*', meaning: definition[1].trim() });
+          return;
+        }
+        const legendLine = line.replace(/\\([*†‡§])/g, '$1').match(/^(\*{1,2}|[†‡§])\s*(?:=|:|-)?\s*(.+)$/);
+        if (legendLine && /^[*†‡§\\]/.test(line)) {
+          legend.push({ mark: legendLine[1], meaning: legendLine[2].replace(/\*$/, '').trim() });
+          return;
+        }
+        const plain = line.replace(/\\([*†‡§])/g, '$1');
+        const marked = plain.match(/^(.*?)\s*(\*{1,2}|[†‡§])$/);
+        const name = marked ? marked[1].trim() : plain;
+        if (name) entries.push({ name, section: heading, mark: marked ? marked[2] : '' });
+      });
     });
-    if (!sections.length) throw new Error('No **Section** headings found.');
+
+    if (!sections.length) throw new Error('No section headings found. Separate sections with a blank line.');
     return { entries, sections, legend };
   }
 
@@ -139,7 +166,8 @@
   }
 
   function subform(name) {
-    return document.getElementById(`jform_params_${name}`);
+    return document.querySelector(`joomla-field-subform[name="jform[params][${name}]"]`)
+      || document.getElementById(`subfieldList_jform_params_${name}`)?.closest('joomla-field-subform');
   }
 
   function field(row, name) {
@@ -147,7 +175,9 @@
   }
 
   function getRows(element) {
-    if (!element || typeof element.getRows !== 'function') throw new Error('Joomla roster fields are not ready.');
+    if (!element || typeof element.getRows !== 'function') {
+      throw new Error('Roster editor fields did not load. Reload this page and try the import again.');
+    }
     return element.getRows();
   }
 
@@ -179,15 +209,20 @@
   }
 
   function writeEditor(data) {
-    replaceRows(subform('sections'), data.sections, (row, heading) => { field(row, 'heading').value = heading; });
+    const setField = (row, name, value) => {
+      const input = field(row, name);
+      if (!input) throw new Error(`Roster editor field ${name} is unavailable. Reload the page and try again.`);
+      input.value = value;
+    };
+    replaceRows(subform('sections'), data.sections, (row, heading) => { setField(row, 'heading', heading); });
     replaceRows(subform('members'), data.members, (row, member) => {
-      field(row, 'name').value = member.name;
-      field(row, 'mark').value = member.mark;
-      field(row, 'sections').value = member.sections.join('\n');
+      setField(row, 'name', member.name);
+      setField(row, 'mark', member.mark);
+      setField(row, 'sections', member.sections.join('\n'));
     });
     replaceRows(subform('legend'), data.legend, (row, entry) => {
-      field(row, 'mark').value = entry.mark;
-      field(row, 'meaning').value = entry.meaning;
+      setField(row, 'mark', entry.mark);
+      setField(row, 'meaning', entry.meaning);
     });
   }
 
@@ -202,10 +237,13 @@
       return element;
     };
     if (title) addText(root, 'h2', title);
+    const order = document.getElementById('jform_params_member_order')?.value || 'manual';
     data.sections.forEach((heading) => {
       addText(root, 'h3', heading);
       const list = document.createElement('ul');
-      data.members.filter((member) => lines(member.sections).some((section) => section === heading))
+      const members = data.members.filter((member) => lines(member.sections).some((section) => section === heading));
+      if (order === 'last_name') members.sort(compareLastName);
+      members
         .forEach((member) => addText(list, 'li', `${member.mark ? `${member.mark} ` : ''}${member.name}`));
       root.append(list);
     });
@@ -217,35 +255,57 @@
     }
   }
 
+  function compareLastName(left, right) {
+    const surname = (member) => member.name.trim().split(/\s+/).at(-1);
+    return surname(left).localeCompare(surname(right), undefined, { sensitivity: 'base' })
+      || left.name.localeCompare(right.name, undefined, { sensitivity: 'base' });
+  }
+
   function init() {
     const run = document.getElementById('roster-import-run');
     if (!run) return;
     const status = document.getElementById('roster-import-status');
+    const setStatus = (message, error = false) => {
+      status.textContent = message;
+      status.className = error ? 'roster-import-error' : '';
+      status.setAttribute('role', error ? 'alert' : 'status');
+    };
     run.addEventListener('click', async () => {
       try {
         const pasted = document.getElementById('roster-import-text').value.trim();
         const file = document.getElementById('roster-import-file').files[0];
-        const source = pasted || (file ? await file.text() : '');
+        let source = pasted;
+        if (!source && file) {
+          try { source = await file.text(); }
+          catch (error) { throw new Error('Could not read the selected file. Try selecting it again or paste its contents.'); }
+        }
         if (!source.trim()) throw new Error('Paste roster text or choose a file first.');
-        const imported = /^\s*(?:\uFEFF)?"?name"?\s*,/i.test(source) ? parseCsv(source) : parseFlat(source);
+        const firstLine = source.replace(/^\uFEFF/, '').split(/\r\n|\r|\n/).find((line) => line.trim()) || '';
+        const csv = (!pasted && file && /\.csv$/i.test(file.name))
+          || /^\s*"?name"?\s*,/i.test(firstLine)
+          || (firstLine.match(/,/g) || []).length >= 2;
+        const imported = csv ? parseCsv(source) : parseFlat(source);
         const combined = merge(readEditor(), imported);
         writeEditor(combined);
         preview(combined);
-        status.textContent = `Imported ${imported.entries.length} assignment(s). Review the roster, then save the module.`;
+        setStatus(`Imported ${imported.entries.length} assignment(s). Review the roster, then save the module.`);
       } catch (error) {
-        status.textContent = error.message;
+        setStatus(error.message || 'Import failed. Check the file format and try again.', true);
       }
     });
     document.getElementById('roster-preview-run').addEventListener('click', () => {
       try {
         preview(readEditor());
-        status.textContent = 'Preview updated from the current editor values.';
+        setStatus('Preview updated from the current editor values.');
       } catch (error) {
-        status.textContent = error.message;
+        setStatus(error.message || 'Preview failed. Reload the page and try again.', true);
       }
     });
   }
 
-  if (typeof module !== 'undefined' && module.exports) module.exports = { parseCsv, parseFlat, merge };
-  if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', init);
+  if (typeof module !== 'undefined' && module.exports) module.exports = { parseCsv, parseFlat, merge, compareLastName, init };
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+    else init();
+  }
 }());

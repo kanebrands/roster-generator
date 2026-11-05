@@ -3,7 +3,7 @@
 .roster-admin-eyebrow { color: #657580; font-size: .74rem; font-weight: 700; letter-spacing: .05em; margin: 0 0 .25rem; text-transform: uppercase; }
 .roster-admin-panel h2 { color: #050d5c; font-size: 1.45rem; font-weight: 600; margin: 0; }
 .roster-admin-panel p:last-child { color: #52636d; margin: .4rem 0 0; }
-#jform_params_sections .subform-repeatable-group, #jform_params_members .subform-repeatable-group, #jform_params_legend .subform-repeatable-group { background: #fff; border: 1px solid #e7eaee; border-radius: 8px; box-shadow: 0 12px 30px rgba(31,42,54,.06); margin-bottom: .75rem; padding: 1rem; }
+joomla-field-subform[name="jform[params][sections]"] .subform-repeatable-group, joomla-field-subform[name="jform[params][members]"] .subform-repeatable-group, joomla-field-subform[name="jform[params][legend]"] .subform-repeatable-group { background: #fff; border: 1px solid #e7eaee; border-radius: 8px; box-shadow: 0 12px 30px rgba(31,42,54,.06); margin-bottom: .75rem; padding: 1rem; }
 .roster-import-panel { background: #fff; border: 1px solid #e7eaee; border-radius: 8px; box-shadow: 0 12px 30px rgba(31,42,54,.06); color: #17232d; display: grid; gap: .65rem; padding: 1.15rem 1.35rem; width: 100%; }
 .roster-import-panel p { margin: 0; }
 .roster-import-panel label { color: #050d5c; font-weight: 700; }
@@ -11,6 +11,13 @@
 .roster-import-panel textarea { min-height: 9rem; }
 .roster-import-panel button { justify-self: start; }
 #roster-import-status { color: #1d6f63; font-weight: 600; }
+#roster-import-status.roster-import-error { color: #b42318; }
+.roster-import-formats { display: grid; gap: 1rem; grid-template-columns: repeat(2,minmax(0,1fr)); }
+.roster-import-formats > div { background: #f8fafb; border: 1px solid #e7eaee; border-radius: 8px; padding: .8rem; }
+.roster-import-formats strong { color: #050d5c; }
+.roster-import-formats p { margin: .4rem 0; }
+.roster-import-formats pre { background: #fff; border: 1px solid #e7eaee; border-radius: 4px; color: #17232d; font: inherit; margin: .5rem 0 0; overflow-x: auto; padding: .6rem; white-space: pre-wrap; }
+@media (max-width: 800px) { .roster-import-formats { grid-template-columns: 1fr; } }
 .roster-preview { border: 1px solid #e7eaee; border-radius: 8px; padding: 1rem; }
 .roster-preview:empty { display: none; }
 .roster-preview h2 { color: #050d5c; font-size: 1.5rem; }

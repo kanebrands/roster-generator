@@ -15,9 +15,10 @@ namespace {
     $params = new \Joomla\Registry\Registry([
         'page_title' => '<Roster>',
         'sections' => [['heading' => 'Flutes'], ['heading' => 'Oboe']],
+        'member_order' => 'last_name',
         'members' => [
-            ['name' => 'Jane & John', 'mark' => '*', 'sections' => "Flutes\nOboe"],
-            ['name' => 'Unsafe <script>', 'mark' => '', 'sections' => 'Flutes'],
+            ['name' => 'Taylor Reed', 'mark' => '*', 'sections' => "Flutes\nOboe"],
+            ['name' => 'Avery Chen', 'mark' => '', 'sections' => 'Flutes'],
         ],
         'legend' => [['mark' => '*', 'meaning' => 'Principal']],
     ]);
@@ -25,5 +26,7 @@ namespace {
     assert(count($roster['sections']) === 2);
     assert(count($roster['sections'][0]['members']) === 2);
     assert(count($roster['sections'][1]['members']) === 1);
-    echo "Roster multi-section rendering data OK\n";
+    assert($roster['sections'][0]['members'][0]['name'] === 'Avery Chen');
+    assert($roster['sections'][0]['members'][1]['name'] === 'Taylor Reed');
+    echo "Roster multi-section and last-name order OK\n";
 }

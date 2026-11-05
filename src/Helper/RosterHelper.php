@@ -42,6 +42,20 @@ final class RosterHelper
             unset($section);
         }
 
+        if ($params->get('member_order', 'manual') === 'last_name') {
+            foreach ($sections as &$section) {
+                usort($section['members'], static function (array $left, array $right): int {
+                    $leftParts = preg_split('/\s+/u', $left['name']) ?: [];
+                    $rightParts = preg_split('/\s+/u', $right['name']) ?: [];
+                    $lastNameOrder = strnatcasecmp((string) end($leftParts), (string) end($rightParts));
+
+                    return $lastNameOrder ?: strnatcasecmp($left['name'], $right['name']);
+                });
+            }
+
+            unset($section);
+        }
+
         $legend = [];
 
         foreach (self::rows($params->get('legend', [])) as $entry) {

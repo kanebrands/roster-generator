@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.2 - 2026-11-04
+
+- Fixed the import button's lookup of Joomla's repeatable editor fields.
+- Accepted plain section headings separated by blank lines, as well as `**Heading**` text.
+- Clarified the supported text and CSV formats and flag characters in the editor, with visible import errors.
+- Added a display option to sort members alphabetically by last name within each section.
+
 ## 0.0.1 - 2026-11-04
 
 - Added a Joomla 5 site module designed for Joomla 6 compatibility.
