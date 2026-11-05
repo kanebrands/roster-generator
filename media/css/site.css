@@ -1,0 +1,10 @@
+.roster-page { max-width: 72rem; margin-inline: auto; }
+.roster-page-title { margin: 0 0 1.5rem; }
+.roster-section { margin: 0 0 1.4rem; }
+.roster-section-title { margin: 0 0 .6rem; font-size: 1.18rem; }
+.roster-members { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem 1rem; list-style: none; margin: 0; padding: 0; }
+.roster-members li { min-width: 0; overflow-wrap: anywhere; }
+.roster-mark { font-weight: 700; white-space: nowrap; }
+.roster-legend { display: grid; gap: .2rem; margin-top: 2rem; }
+@media (max-width: 800px) { .roster-members { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .roster-members { grid-template-columns: 1fr; } }

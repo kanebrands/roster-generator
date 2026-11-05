@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>MOD_ROSTER</name>
+    <version>0.0.1</version>
+    <creationDate>2026-11-04</creationDate>
+    <author>Kane Brands</author>
+    <license>GNU General Public License version 2 or later</license>
+    <description>MOD_ROSTER_XML_DESCRIPTION</description>
+    <namespace path="src">KaneBrands\Module\Roster</namespace>
+    <files>
+        <folder module="mod_roster">services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+        <file>mod_roster.xml</file>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/mod_roster.ini</language>
+        <language tag="en-GB">language/en-GB/mod_roster.sys.ini</language>
+    </languages>
+    <media destination="mod_roster" folder="media">
+        <folder>css</folder>
+        <folder>js</folder>
+    </media>
+    <updateservers>
+        <server type="extension" priority="1" name="Roster Updates">https://raw.githubusercontent.com/kanebrands/roster-generator/main/updates/mod_roster.xml</server>
+    </updateservers>
+    <config>
+        <fields name="params">
+            <fieldset name="basic" addfieldprefix="KaneBrands\Module\Roster\Site\Field">
+                <field name="intro" type="intro" label="MOD_ROSTER_ADMIN_INTRO" />
+                <field name="page_title" type="text" label="MOD_ROSTER_PAGE_TITLE" description="MOD_ROSTER_PAGE_TITLE_DESC" filter="string" size="60" />
+                <field name="sections" type="subform" label="MOD_ROSTER_SECTIONS" description="MOD_ROSTER_SECTIONS_DESC" multiple="true" validate="Subform" layout="joomla.form.field.subform.repeatable-table">
+                    <form>
+                        <field name="heading" type="text" label="MOD_ROSTER_SECTION_HEADING" filter="string" required="true" />
+                    </form>
+                </field>
+                <field name="members" type="subform" label="MOD_ROSTER_MEMBERS" description="MOD_ROSTER_MEMBERS_DESC" multiple="true" validate="Subform" layout="joomla.form.field.subform.repeatable-table">
+                    <form>
+                        <field name="name" type="text" label="MOD_ROSTER_MEMBER_NAME" filter="string" required="true" size="30" />
+                        <field name="mark" type="text" label="MOD_ROSTER_MARK" filter="string" size="8" />
+                        <field name="sections" type="textarea" label="MOD_ROSTER_MEMBER_SECTIONS" description="MOD_ROSTER_MEMBER_SECTIONS_DESC" filter="string" rows="2" cols="24" required="true" />
+                    </form>
+                </field>
+                <field name="legend" type="subform" label="MOD_ROSTER_LEGEND" description="MOD_ROSTER_LEGEND_DESC" multiple="true" validate="Subform" layout="joomla.form.field.subform.repeatable-table">
+                    <form>
+                        <field name="mark" type="text" label="MOD_ROSTER_MARK" filter="string" required="true" size="8" />
+                        <field name="meaning" type="text" label="MOD_ROSTER_MEANING" filter="string" required="true" size="40" />
+                    </form>
+                </field>
+                <field name="import" type="rosterimport" label="MOD_ROSTER_IMPORT" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

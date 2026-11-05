@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+    <update>
+        <name>Roster</name>
+        <description>Public roster module</description>
+        <element>mod_roster</element>
+        <type>module</type>
+        <client>site</client>
+        <version>0.0.1</version>
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/kanebrands/roster-generator/releases/download/v0.0.1/mod_roster-0.0.1.zip</downloadurl>
+        </downloads>
+        <targetplatform name="joomla" version="[56]\.[0-9]+" />
+    </update>
+</updates>

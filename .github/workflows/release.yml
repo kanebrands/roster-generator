@@ -1,0 +1,23 @@
+name: Release Joomla module
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source and tag
+        run: python3 scripts/check.py --tag "$GITHUB_REF_NAME"
+      - name: Build installable ZIP
+        run: python3 scripts/build.py
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md --verify-tag

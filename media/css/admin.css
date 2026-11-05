@@ -1,0 +1,22 @@
+.roster-admin-panel { align-items: center; background: #fff; border: 1px solid #e7eaee; border-radius: 8px; box-shadow: 0 12px 30px rgba(31,42,54,.06); color: #17232d; display: flex; gap: 1rem; padding: 1.15rem 1.35rem; width: 100%; }
+.roster-admin-mark { background: linear-gradient(135deg,#0f9cf7,#1d6f63); border-radius: 8px; flex: 0 0 3rem; height: 3rem; }
+.roster-admin-eyebrow { color: #657580; font-size: .74rem; font-weight: 700; letter-spacing: .05em; margin: 0 0 .25rem; text-transform: uppercase; }
+.roster-admin-panel h2 { color: #050d5c; font-size: 1.45rem; font-weight: 600; margin: 0; }
+.roster-admin-panel p:last-child { color: #52636d; margin: .4rem 0 0; }
+#jform_params_sections .subform-repeatable-group, #jform_params_members .subform-repeatable-group, #jform_params_legend .subform-repeatable-group { background: #fff; border: 1px solid #e7eaee; border-radius: 8px; box-shadow: 0 12px 30px rgba(31,42,54,.06); margin-bottom: .75rem; padding: 1rem; }
+.roster-import-panel { background: #fff; border: 1px solid #e7eaee; border-radius: 8px; box-shadow: 0 12px 30px rgba(31,42,54,.06); color: #17232d; display: grid; gap: .65rem; padding: 1.15rem 1.35rem; width: 100%; }
+.roster-import-panel p { margin: 0; }
+.roster-import-panel label { color: #050d5c; font-weight: 700; }
+.roster-import-panel input[type=file] { max-width: 100%; }
+.roster-import-panel textarea { min-height: 9rem; }
+.roster-import-panel button { justify-self: start; }
+#roster-import-status { color: #1d6f63; font-weight: 600; }
+.roster-preview { border: 1px solid #e7eaee; border-radius: 8px; padding: 1rem; }
+.roster-preview:empty { display: none; }
+.roster-preview h2 { color: #050d5c; font-size: 1.5rem; }
+.roster-preview h3 { color: #050d5c; font-size: 1.1rem; margin: 1rem 0 .4rem; }
+.roster-preview ul { display: grid; gap: .25rem .75rem; grid-template-columns: repeat(4,minmax(0,1fr)); list-style: none; margin: 0; padding: 0; }
+.roster-preview li { overflow-wrap: anywhere; }
+.roster-preview .roster-preview-legend { margin-top: 1.25rem; }
+@media (max-width: 800px) { .roster-preview ul { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 480px) { .roster-preview ul { grid-template-columns: 1fr; } }
