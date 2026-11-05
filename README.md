@@ -17,7 +17,7 @@ The preview uses invented names and sample sections and flags.
 1. Download the latest **`pkg_roster-X.Y.Z.zip`** from the [releases page](https://github.com/kanebrands/roster-generator/releases). This package installs both the Roster module and its menu item component. If you previously installed only the module, installing the package upgrades it and adds the menu item type. The standalone `mod_roster-X.Y.Z.zip` remains available for module-only installs.
 2. In Joomla administrator, go to **System > Install > Extensions** and upload the ZIP.
 3. Go to **Content > Site Modules > New > Roster**, or open an existing Roster module. Enter the content on the **Module** tab and save it.
-4. Set **Status** to **Published** and **Show Title** to **Hide**. The **Page title** setting supplies the public heading. Under **Menu Assignment**, choose **On all pages**; this allows Joomla to load the roster from its ID on the public page. A template position is not needed when using either dedicated-page method below.
+4. Set **Status** to **Published** and **Show Title** to **Hide**. The **Page title** setting supplies the public heading. A template position is not needed when using either dedicated-page method below.
 
 ### Publish directly as a Roster menu item
 
@@ -25,11 +25,11 @@ The preview uses invented names and sample sections and flags.
 2. Go to **Menus**, open the menu that should contain the page, and select **New**.
 3. Enter the menu title. For **Menu Item Type**, select **Roster > Roster**.
 4. In **Roster module**, select the roster module you want this page to display. Save and publish the menu item.
-5. Open the menu item on the public site. If the page reports that the roster is unavailable, check that the selected module is published and its **Menu Assignment** includes this menu item (or is **On all pages**).
+5. Open the menu item on the public site. The direct menu item loads its selected published roster even when the module's **Menu Assignment** does not include that page. If the page reports that the roster is unavailable, check that the selected module itself is published, its publishing dates include today, and its access level permits the visitor.
 
 ### Publish through an article
 
-1. In **Content > Site Modules**, note the published roster's numeric **ID**.
+1. In **Content > Site Modules**, note the published roster's numeric **ID**. Set its **Menu Assignment** to **On all pages** or include the article's menu item, so Joomla's module loader can find it.
 2. Make sure Joomla's **Content - Load Modules** plugin is enabled under **System > Manage > Plugins**.
 3. Create a Joomla article containing `{loadmoduleid MODULE_ID}`, replacing `MODULE_ID` with the roster module's ID. Publish the article.
 4. Under **Menus**, create a menu item of type **Articles > Single Article** and select the article. Publish the menu item.

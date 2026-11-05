@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
     <name>COM_ROSTER</name>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
     <creationDate>2026-11-04</creationDate>
     <author>Kane Brands</author>
     <license>GNU General Public License version 2 or later</license>
@@ -18,6 +18,7 @@
     <administration>
         <files folder="admin">
             <folder>services</folder>
+            <folder>src</folder>
         </files>
         <languages folder="admin/language">
             <language tag="en-GB">en-GB/com_roster.ini</language>

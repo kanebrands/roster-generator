@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.6 - 2026-11-04
+
+- Fixed direct Roster menu pages so the selected published module loads without a separate module menu assignment.
+- Added component routing so menu links use their Joomla aliases without extra `view` and `id` query parameters.
+- Clarified the distinct publishing requirements for direct menu items and article embeds.
+
 ## 0.0.5 - 2026-11-04
 
 - Added a companion Joomla component with a Roster menu item type that selects an existing roster module.

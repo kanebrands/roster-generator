@@ -5,7 +5,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 Factory::getApplication()->getDocument()->getWebAssetManager()
-    ->registerAndUseStyle('mod_roster.site', 'mod_roster/site.css', ['version' => '0.0.5']);
+    ->registerAndUseStyle('mod_roster.site', 'mod_roster/site.css', ['version' => '0.0.6']);
 
 $escape = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 ?>

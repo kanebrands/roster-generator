@@ -54,8 +54,9 @@ def main() -> None:
     for filename in required:
         assert (ROOT / filename).is_file(), f"Missing {filename}"
     component_required = [
-        "com_roster.xml", "admin/services/provider.php", "site/src/Controller/DisplayController.php",
-        "site/src/View/Roster/HtmlView.php", "site/tmpl/roster/default.php",
+        "com_roster.xml", "admin/services/provider.php", "admin/src/Extension/RosterComponent.php",
+        "site/src/Controller/DisplayController.php",
+        "site/src/View/Roster/HtmlView.php", "site/src/Service/Router.php", "site/tmpl/roster/default.php",
         "site/tmpl/roster/default.xml", "admin/language/en-GB/com_roster.sys.ini",
         "admin/language/en-GB/com_roster.ini", "site/language/en-GB/com_roster.ini",
     ]
