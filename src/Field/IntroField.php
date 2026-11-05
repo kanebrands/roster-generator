@@ -4,7 +4,7 @@ namespace KaneBrands\Module\Roster\Site\Field;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\FormField;
-use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 final class IntroField extends FormField
@@ -13,7 +13,8 @@ final class IntroField extends FormField
 
     protected function getInput(): string
     {
-        HTMLHelper::_('stylesheet', 'mod_roster/css/admin.css', ['version' => 'auto', 'relative' => true]);
+        Factory::getApplication()->getDocument()->getWebAssetManager()
+            ->registerAndUseStyle('mod_roster.admin', 'mod_roster/admin.css', ['version' => '0.0.3']);
 
         $title = htmlspecialchars(Text::_('MOD_ROSTER_ADMIN_TITLE'), ENT_QUOTES, 'UTF-8');
         $eyebrow = htmlspecialchars(Text::_('MOD_ROSTER_ADMIN_EYEBROW'), ENT_QUOTES, 'UTF-8');

@@ -270,6 +270,9 @@
       status.className = error ? 'roster-import-error' : '';
       status.setAttribute('role', error ? 'alert' : 'status');
     };
+    run.disabled = false;
+    document.getElementById('roster-preview-run').disabled = false;
+    setStatus('Importer ready. Paste text or choose a file, then click Import into editor.');
     run.addEventListener('click', async () => {
       try {
         const pasted = document.getElementById('roster-import-text').value.trim();

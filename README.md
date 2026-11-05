@@ -58,6 +58,7 @@ node --check media/js/admin-import.js
 node scripts/test-import.js
 node scripts/test-editor.js
 php -d zend.assertions=1 scripts/test-render.php
+php -d zend.assertions=1 scripts/test-assets.php
 python3 scripts/build.py
 ```
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.3 - 2026-11-04
+
+- Fixed Joomla asset paths so the importer script and administrator/public stylesheets load.
+- Showed an importer loading message until JavaScript enables the import and preview buttons.
+
 ## 0.0.2 - 2026-11-04
 
 - Fixed the import button's lookup of Joomla's repeatable editor fields.

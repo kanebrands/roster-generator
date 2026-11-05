@@ -29,8 +29,8 @@ function element() {
 
 const forms = { sections: subform(), members: subform(), legend: subform() };
 const elements = {
-  'roster-import-run': element(),
-  'roster-preview-run': element(),
+  'roster-import-run': { ...element(), disabled: true },
+  'roster-preview-run': { ...element(), disabled: true },
   'roster-import-status': element(),
   'roster-import-text': { value: 'Flutes\nTaylor Reed*\nAvery Chen\n\nOboe\nMorgan Hall\n\n*Principal' },
   'roster-import-file': { files: [] },
@@ -46,6 +46,9 @@ global.document = {
 
 async function main() {
   init();
+  assert.equal(elements['roster-import-run'].disabled, false);
+  assert.equal(elements['roster-preview-run'].disabled, false);
+  assert.match(elements['roster-import-status'].textContent, /Importer ready/);
   await elements['roster-import-run'].handlers.click();
   assert.equal(forms.sections.getRows().length, 2);
   assert.equal(forms.members.getRows().length, 3);
