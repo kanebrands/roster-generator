@@ -1,6 +1,10 @@
 # Roster
 
-Roster is a public Joomla site module for an editable, sectioned member roster. It is designed for Joomla 5 and Joomla 6. The layout follows the structure of the [Green Valley Concert Band member page](https://www.greenvalleyconcertband.org/index.php/about-our-band/band-members): a page title, ordered sections, a responsive name grid, and a legend for special markings. The administrator panel uses the navy, blue, teal, and card styling of Volunteer Tracker.
+Roster is a public Joomla site module for an editable, sectioned member roster. It is designed for Joomla 5 and Joomla 6. The public page places a prominent title above ordered section headings, displays names in a clean four-column grid that adapts to smaller screens, and ends with a legend explaining special markings. The administrator panel uses the navy, blue, teal, and card styling of Volunteer Tracker.
+
+![Synthetic roster page preview with sections, names, flags, and legend](docs/roster-preview.png)
+
+The preview uses invented names and sample sections and flags.
 
 ## Requirements
 
