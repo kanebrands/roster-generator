@@ -14,7 +14,7 @@ final class RosterimportField extends FormField
     protected function getInput(): string
     {
         Factory::getApplication()->getDocument()->getWebAssetManager()
-            ->registerAndUseScript('mod_roster.admin-import', 'mod_roster/admin-import.js', ['version' => '0.0.3'], ['defer' => true]);
+            ->registerAndUseScript('mod_roster.admin-import', 'mod_roster/admin-import.js', ['version' => '0.0.4'], ['defer' => true]);
 
         $escape = static fn ($key): string => htmlspecialchars(Text::_($key), ENT_QUOTES, 'UTF-8');
         $example = static fn ($key): string => str_replace('\\n', "\n", $escape($key));

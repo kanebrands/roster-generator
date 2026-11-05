@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.4 - 2026-11-04
+
+- Reworked the administrator editor to inherit Joomla's light and dark theme colors.
+- Removed the bright intro card, decorative gradient, and forced white backgrounds from roster controls.
+
 ## 0.0.3 - 2026-11-04
 
 - Fixed Joomla asset paths so the importer script and administrator/public stylesheets load.

@@ -1,6 +1,6 @@
 # Roster
 
-Roster is a public Joomla site module for an editable, sectioned member roster. It is designed for Joomla 5 and Joomla 6. The public page places a prominent title above ordered section headings, displays names in a clean four-column grid that adapts to smaller screens, and ends with a legend explaining special markings. The administrator panel uses the navy, blue, teal, and card styling of Volunteer Tracker.
+Roster is a public Joomla site module for an editable, sectioned member roster. It is designed for Joomla 5 and Joomla 6. The public page places a prominent title above ordered section headings, displays names in a clean four-column grid that adapts to smaller screens, and ends with a legend explaining special markings. The administrator editor follows Joomla's light or dark color scheme and uses its native controls.
 
 ![Synthetic roster page preview with sections, names, flags, and legend](docs/roster-preview.png)
 
