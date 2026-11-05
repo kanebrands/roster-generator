@@ -1,4 +1,4 @@
-name: Release Joomla module
+name: Release Joomla roster package
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify source and tag
         run: python3 scripts/check.py --tag "$GITHUB_REF_NAME"
-      - name: Build installable ZIP
+      - name: Build installable ZIPs
         run: python3 scripts/build.py
       - name: Publish release
         env:

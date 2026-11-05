@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.5 - 2026-11-04
+
+- Added a companion Joomla component with a Roster menu item type that selects an existing roster module.
+- Added a package installer and update feed for the component and module together, while preserving the standalone module ZIP.
+- Documented direct menu item, article, and template-position publishing paths.
+
 ## 0.0.4 - 2026-11-04
 
 - Reworked the administrator editor to inherit Joomla's light and dark theme colors.

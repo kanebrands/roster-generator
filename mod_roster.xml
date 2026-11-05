@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" client="site" method="upgrade">
     <name>MOD_ROSTER</name>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <creationDate>2026-11-04</creationDate>
     <author>Kane Brands</author>
     <license>GNU General Public License version 2 or later</license>

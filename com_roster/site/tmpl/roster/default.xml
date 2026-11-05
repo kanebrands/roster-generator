@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_ROSTER_MENU_TITLE">
+        <message>COM_ROSTER_MENU_DESCRIPTION</message>
+    </layout>
+    <fields name="request">
+        <fieldset name="request">
+            <field name="id" type="sql" label="COM_ROSTER_SELECT_LABEL"
+                description="COM_ROSTER_SELECT_DESC" required="true"
+                query="SELECT id, title FROM #__modules WHERE module = 'mod_roster' AND client_id = 0 ORDER BY title"
+                key_field="id" value_field="title" />
+        </fieldset>
+    </fields>
+</metadata>

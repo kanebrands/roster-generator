@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+    <update>
+        <name>Roster Package</name>
+        <description>Roster module and menu item component</description>
+        <element>pkg_roster</element>
+        <type>package</type>
+        <version>0.0.5</version>
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/kanebrands/roster-generator/releases/download/v0.0.5/pkg_roster-0.0.5.zip</downloadurl>
+        </downloads>
+        <targetplatform name="joomla" version="[56]\.[0-9]+" />
+    </update>
+</updates>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+    <name>Roster Package</name>
+    <packagename>roster</packagename>
+    <version>0.0.5</version>
+    <creationDate>2026-11-04</creationDate>
+    <author>Kane Brands</author>
+    <license>GNU General Public License version 2 or later</license>
+    <description>Roster module and menu item component</description>
+    <updateservers>
+        <server type="extension" priority="1" name="Roster Package Updates">https://raw.githubusercontent.com/kanebrands/roster-generator/main/updates/pkg_roster.xml</server>
+    </updateservers>
+    <files folder="constituents">
+        <file type="module" id="mod_roster" client="site">mod_roster.zip</file>
+        <file type="component" id="com_roster">com_roster.zip</file>
+    </files>
+</extension>
